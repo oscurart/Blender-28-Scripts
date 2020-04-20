@@ -30,7 +30,7 @@ cageObj = bpy.data.objects.new("Cage", nMesh)
 
 actCollection.objects.link(cageObj)
 
-for vert in bpy.context.object.data.vertices:
+for vert in cageObj.data.vertices:
     vert.co = vert.co + (vert.normal*ce)
     
 bpy.context.scene.render.bake.cage_object = cageObj 

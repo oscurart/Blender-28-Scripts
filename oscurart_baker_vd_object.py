@@ -1,3 +1,7 @@
+#usage
+#select the model with multires with the sculpt levels on top
+
+
 import bpy
 
 lr = bpy.context.object.copy()
@@ -12,10 +16,6 @@ hr.data = hrd
 
 for mod in lr.modifiers:
     lr.modifiers.remove(mod)
-
-#paso a cycles
-bpy.context.scene.render.engine = "CYCLES"
-bpy.context.scene.cycles.samples = 2
 
 #pongo subdivision    
 lrMod = lr.modifiers.new("subsurf", "SUBSURF")   
@@ -87,8 +87,10 @@ bpy.context.view_layer.objects.active = lr # usar este
 bpy.ops.object.bake(type="EMIT")
 
 #purga
+"""
 bpy.context.collection.objects.unlink(hr)
 bpy.data.images.remove(lrImg)
 bpy.data.images.remove(hrImg)
 bpy.data.materials.remove(lrMat)
 bpy.data.materials.remove(hrMat)
+"""

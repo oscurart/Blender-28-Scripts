@@ -22,6 +22,7 @@ lrMod = lr.modifiers.new("subsurf", "SUBSURF")
 #seteo levels al lr
 lrMod.levels = vl
 lrMod.render_levels  = vl
+lrMod.uv_smooth ="SMOOTH_ALL"
 #cambio nombre
 lr.name = "LR"
 hr.name = "HR"

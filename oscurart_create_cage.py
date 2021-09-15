@@ -25,7 +25,10 @@ ce = bpy.context.scene.render.bake.cage_extrusion
 
 selObMatrix = bpy.context.object.matrix_world.copy()
 
-nMesh = bpy.context.object.data.copy()
+depsgraph = bpy.context.evaluated_depsgraph_get()
+object_eval = bpy.context.object.evaluated_get(depsgraph)
+nMesh = bpy.data.meshes.new_from_object(object_eval)
+
 actCollection = bpy.context.view_layer.active_layer_collection.collection
 
 cageObj = bpy.data.objects.new("Cage", nMesh)
@@ -37,3 +40,4 @@ for vert in cageObj.data.vertices:
     
 bpy.context.scene.render.bake.cage_object = cageObj 
 cageObj.matrix_world = selObMatrix
+

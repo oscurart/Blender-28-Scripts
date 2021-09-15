@@ -23,6 +23,8 @@ import bpy
 
 ce = bpy.context.scene.render.bake.cage_extrusion
 
+selObMatrix = bpy.context.object.matrix_world.copy()
+
 nMesh = bpy.context.object.data.copy()
 actCollection = bpy.context.view_layer.active_layer_collection.collection
 
@@ -34,3 +36,4 @@ for vert in cageObj.data.vertices:
     vert.co = vert.co + (vert.normal*ce)
     
 bpy.context.scene.render.bake.cage_object = cageObj 
+cageObj.matrix_world = selObMatrix

@@ -24,7 +24,7 @@ import bpy
 obj = bpy.context.object
 bpy.context.scene.render.engine = 'CYCLES'
 
-psys = obj.modifiers["hair"] # CAMBIAR NOMBRE
+psys = obj.modifiers.active # CAMBIAR NOMBRE
 
 # Connect and disconnect (needed, but why?)
 bpy.ops.particle.disconnect_hair(all=True)

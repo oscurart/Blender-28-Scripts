@@ -29,6 +29,9 @@ target = [o for o in selObjs if o != source][0]
 psys = source.modifiers.active
 selpsys = target.modifiers.active
 
+actPsys = source.particle_systems.active_index
+target.particle_systems.active_index = actPsys
+
 
 depsgraph = bpy.context.evaluated_depsgraph_get()
 source_eval = source.evaluated_get(depsgraph)

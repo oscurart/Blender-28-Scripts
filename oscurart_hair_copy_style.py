@@ -15,8 +15,7 @@
 #  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 # ##### END GPL LICENSE BLOCK #####
-# Usage: seleccionar destino y fuente. El destino no debe tener edicion. una vez corrido dar un pincelazo
-# al aire para freezar
+# Usage: seleccionar destino y fuente. Recordar habilidar la edicion
 # Author: Eugenio Pignataro (Oscurart) www.oscurart.com.ar
 
 
@@ -45,3 +44,8 @@ for sourcePart,targetPart in zip(psys_source.particles,psys_target.particles):
 
 bpy.ops.particle.disconnect_hair(all=True)
 bpy.ops.particle.connect_hair(all=True)
+
+bpy.context.view_layer.objects.active = target
+bpy.ops.object.mode_set(mode='PARTICLE_EDIT')
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.context.view_layer.objects.active = source

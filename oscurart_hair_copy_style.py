@@ -25,27 +25,30 @@ source = bpy.context.object
 selObjs = bpy.context.selected_objects 
 target = [o for o in selObjs if o != source][0]
 
-psys = source.modifiers.active
-selpsys = target.modifiers.active
 
-actPsys = source.particle_systems.active_index
-target.particle_systems.active_index = actPsys
+for i,particleSystem in enumerate(source.particle_systems):
+    print(particleSystem.name)
+    psys = source.modifiers.active
+    selpsys = target.modifiers.active
+
+    source.particle_systems.active_index = i
+    target.particle_systems.active_index = i
 
 
-depsgraph = bpy.context.evaluated_depsgraph_get()
-source_eval = source.evaluated_get(depsgraph)
-psys_source = source_eval.particle_systems.active
-target_eval = target.evaluated_get(depsgraph)
-psys_target = target_eval.particle_systems.active
+    depsgraph = bpy.context.evaluated_depsgraph_get()
+    source_eval = source.evaluated_get(depsgraph)
+    psys_source = source_eval.particle_systems[particleSystem.name]
+    target_eval = target.evaluated_get(depsgraph)
+    psys_target = target_eval.particle_systems[particleSystem.name]
 
-for sourcePart,targetPart in zip(psys_source.particles,psys_target.particles):
-    for sourceHK,targetHK in zip(sourcePart.hair_keys,targetPart.hair_keys):
-        targetHK.co = sourceHK.co
+    for sourcePart,targetPart in zip(psys_source.particles,psys_target.particles):
+        for sourceHK,targetHK in zip(sourcePart.hair_keys,targetPart.hair_keys):
+            targetHK.co = sourceHK.co
 
-bpy.ops.particle.disconnect_hair(all=True)
-bpy.ops.particle.connect_hair(all=True)
+    bpy.ops.particle.disconnect_hair(all=True)
+    bpy.ops.particle.connect_hair(all=True)
 
-bpy.context.view_layer.objects.active = target
-bpy.ops.object.mode_set(mode='PARTICLE_EDIT')
-bpy.ops.object.mode_set(mode='OBJECT')
-bpy.context.view_layer.objects.active = source
+    bpy.context.view_layer.objects.active = target
+    bpy.ops.object.mode_set(mode='PARTICLE_EDIT')
+    bpy.ops.object.mode_set(mode='OBJECT')
+    bpy.context.view_layer.objects.active = source

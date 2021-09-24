@@ -26,18 +26,15 @@ source = bpy.context.object
 selObjs = bpy.context.selected_objects 
 target = [o for o in selObjs if o != source][0]
 
-print("source"+source.name)
-print("target"+target.name)
-
 psys = source.modifiers.active
 selpsys = target.modifiers.active
 
 
 depsgraph = bpy.context.evaluated_depsgraph_get()
 source_eval = source.evaluated_get(depsgraph)
-psys_source = source_eval.particle_systems[0]
+psys_source = source_eval.particle_systems.active
 target_eval = target.evaluated_get(depsgraph)
-psys_target = target_eval.particle_systems[0]
+psys_target = target_eval.particle_systems.active
 
 for sourcePart,targetPart in zip(psys_source.particles,psys_target.particles):
     for sourceHK,targetHK in zip(sourcePart.hair_keys,targetPart.hair_keys):

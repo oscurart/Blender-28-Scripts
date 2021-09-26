@@ -59,10 +59,12 @@ bpy.ops.object.select_all(action="DESELECT")
 lr.select_set(True)
 bpy.context.view_layer.objects.active = lr # usar este
 bpy.ops.object.bake(type="EMIT")
+print("Bake LR finished")
 bpy.ops.object.select_all(action="DESELECT")
 hr.select_set(True)
 bpy.context.view_layer.objects.active = hr # usar este
 bpy.ops.object.bake(type="EMIT")
+print("Bake HR finished")
 
 #se restan las imagenes
 bpy.context.view_layer.objects.active = lr # usar este
